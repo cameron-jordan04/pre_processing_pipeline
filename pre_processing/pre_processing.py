@@ -15,7 +15,8 @@ class Preprocess:
         @version 1.0
     '''
 
-    def __init__(self, timeseries, signal, reference, positive_coefficients=False, sampling_frequency=20, drop=200, window_size=11, r_squared_threshold=0.7):
+    def __init__(self, timeseries, signal, reference, 
+                 positive_coefficients=False, sampling_frequency=20, cutoff=(1/600), drop=200, window_size=11, r_squared_threshold=0.7):
         '''
         Initialize a Preprocess Object
 
@@ -25,6 +26,7 @@ class Preprocess:
                 reference             : Values of the Reference Signal Over the Above timeseries
                 positive_coefficients : Indicates Whether the LASSO Regression Can Have Positive Coefficients; boolean
                 sampling_frequency    : Sampling Frequency of the Equipment
+                cutoff                : Cutoff Frequency of the LPF Baseline Method
                 drop                  : Number of Initial Frames to Drop
                 window_size           : Desired Window Size for Triangular Moving Average Smoothing
                 r_squared_threshold   : r_squared Cutoff Value for Baseline Similarity
@@ -266,7 +268,7 @@ class Preprocess:
         baseline = pywt.waverec(coeffs, wavelet=wavelet, mode='periodization')
         return baseline
 
-    def lpf_baseline(self, signal, cutoff=(1/600)):
+    def lpf_baseline(self, signal):
         '''
         Applies a Low-Pass Filter to the Signal to Determine the Low Frequency (Baseline) Components
 
@@ -279,7 +281,7 @@ class Preprocess:
 
         '''
 
-        sos = sp.signal.butter(4, cutoff, 'low', fs=self.fs, output='sos')
+        sos = sp.signal.butter(4, self.cutoff, 'low', fs=self.fs, output='sos')
         baseline = sp.signal.sosfiltfilt(sos, signal)
         return baseline
 
