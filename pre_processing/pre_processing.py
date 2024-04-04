@@ -9,6 +9,9 @@ from sklearn.linear_model import Lasso, LassoCV
 
 ''' Photometry Pre-Processing Class '''
 class Preprocess:
+    '''
+        @Author
+    '''
 
     def __init__(self, timeseries, signal, reference, positive_coefficients=False, sampling_frequency=20, drop=200, window_size=11, r_squared_threshold=0.7):
         '''
@@ -281,6 +284,22 @@ class Preprocess:
     #####################
     ## Utility Methods ##
     #####################
+
+    def _z_score(self, signal):
+        '''
+        Calculate the Z Score 
+
+            Parameters:
+                signal : Signal to z-Score; array-like
+
+            Returns:
+                z_signal : z-Scored Signal
+                
+        '''
+
+        z_signal = (signal - np.median(signal)) / np.std(signal)
+
+        return z_signal
 
     def _visualize(self, signal, title, ax=None, **kwargs):
         '''

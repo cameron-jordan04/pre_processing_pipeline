@@ -2,6 +2,8 @@
 
 This pipeline is intended to be used in the pre-processing of photometric data, specifically on data sets where the experiment records (simultaneously) from a signal channel and a reference or control channel, which is expected to have nearly identical motion artifacts to the 'true' signal channel.
 
+Author: Cameron Jordan
+
 **Index**
 1. [Usage](#usage)
 2. [Methods](#methods)
@@ -233,10 +235,10 @@ graph TD;
 
 #### Spline Smoothing
 
-Consider the observational regression model, $$y_i = f(x_i) + \epsilon_i, \ i = \overline{1, n},$$with $\epsilon = (\epsilon_1, ..., \epsilon_n)'$ ~ $N(0, \sigma^2I)$ and the data, $y_i$, having the weights $w_i, w_i > 0$.
+Consider the observational regression model: $$y_i = f(x_i) + \epsilon_i, \ i = \overline{1, n},$$ with $\epsilon = (\epsilon_1, ..., \epsilon_n)'$ ~ $N(0, \sigma^2I)$ and the data, $y_i$, having the weights $w_i, w_i > 0$.
 
 A non-parametric model doesn't make assumptions about the shape of the estimator, but about the "quality" of the estimator, which generally refers to some general properties such as smoothness. Moreover, if the data is noisy, then it is more appropriate to find an estimator that is not very close to the data (point by point) but instead is sufficiently smooth; such an estimator will minimize the following expression: $$\sum_{i=1}^n w_i(y_i-f(x_i))^2 \ + \ \lambda \int_a^b(f^{(m)}(x))^2, \ \lambda \geq 0, \ [x_{min}, x_{max}] \subseteq [a,b]$$
-where $m$ in the integral represents the $m$th derivative, and therefore the order of the smoothing spline.
+where $m$ in the integral represents the $m$ th derivative, and therefore the order of the smoothing spline.
 
 - The summation term represents the *goodness-of-fit* to the data, often known as the penalized least squares criteria
 - The integral represents the *smoothness of the estimator*
@@ -264,16 +266,3 @@ Credit: [The Cross Validation Method in the Smoothing Spline Regression](https:/
 
 
 
-
-### Dependencies
-
-``` python
-import numpy as np
-import scipy as sp
-import seaborn as sns
-import matplotlib.pyplot as plt
-import statsmodels.api as sm
-import pywt
-
-from sklearn.linear_model import Lasso, LassoCV
-```
