@@ -1,5 +1,3 @@
-# !pip install padasip
-
 import numpy as np
 import scipy as sp
 import seaborn as sns
@@ -17,13 +15,14 @@ class Preprocess:
         Initialize a Preprocess Object
 
             Parameters:
-                timeseries          : Sequence of Data Points Over a Time Variable
-                signal              : Values of the Signal Over the Above timeseries
-                reference           : Values of the Reference Signal Over the Above timeseries
-                sampling_frequency  : Sampling Frequency of the Equipment
-                drop                : Number of Initial Frames to Drop
-                window_size         : Desired Window Size for Triangular Moving Average Smoothing
-                r_squared_threshold : r_squared Cutoff Value for Baseline Similarity
+                timeseries            : Sequence of Data Points Over a Time Variable
+                signal                : Values of the Signal Over the Above timeseries
+                reference             : Values of the Reference Signal Over the Above timeseries
+                positive_coefficients : Indicates Whether the LASSO Regression Can Have Positive Coefficients; boolean
+                sampling_frequency    : Sampling Frequency of the Equipment
+                drop                  : Number of Initial Frames to Drop
+                window_size           : Desired Window Size for Triangular Moving Average Smoothing
+                r_squared_threshold   : r_squared Cutoff Value for Baseline Similarity
         '''
 
         assert window_size % 2 == 1, "the window size must be odd"
@@ -44,9 +43,9 @@ class Preprocess:
         self.window_size = window_size
         self.r_squared_threshold = r_squared_threshold
 
-    def pipeline(self, smoothing_method, baseline_method, fit_method, detrend_last=False, ax=None):
+    def pipeline(self, smoothing_method, baseline_method, fit_method, detrend_last=False, show=False, ax=None):
         '''
-        Construct a Pre-Processing Pipeline
+        Constructs a Pre-Processing Pipeline
 
             Parameters:
                 smoothing_method : Method to Pass to self.smooth(); string-type
@@ -59,6 +58,7 @@ class Preprocess:
                     - l    [lasso] 
                 detrend_last     : Indicates Whether to Detrend After Subtracting self.fitted_ref From self.detrended_signal
                 ax               : Axis to Pass to _visualize; plt.gca() object
+                show             : Indicates Whether to Graph the Pre-Processed Signal Upon Pipeline Generation
 
             Returns:
                 self.z_dFF       : Normalized, Filtered, Baseline-Corrected signal Channel
@@ -77,7 +77,9 @@ class Preprocess:
         if (detrend_last):
             self.z_dFF = self.baseline(baseline_method, self.z_dFF)
 
-        self._visualize(self.z_dFF, 'z_dFF', ax=ax)
+        if (show):
+            self._visualize(self.z_dFF, 'z_dFF', ax=ax)
+        
         return self.z_dFF
 
     def smooth(self, method):
