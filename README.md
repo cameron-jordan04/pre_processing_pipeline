@@ -16,7 +16,6 @@ Author: Cameron Jordan
     3.3 [Wavelet Methods](#wavelet-decomposition-and-reconstruction)
     3.4 [OLS](#ordinary-least-squares-regression-ols)
     3.5 [LASSO](#lasso-regression)
-4. [Dependencies](#dependencies)
 
 ### Usage
 

@@ -10,7 +10,9 @@ from sklearn.linear_model import Lasso, LassoCV
 ''' Photometry Pre-Processing Class '''
 class Preprocess:
     '''
-        @Author
+        @author  Cameron Jordan
+        @email   cameronjordan@berkeley.edu
+        @version 1.0
     '''
 
     def __init__(self, timeseries, signal, reference, positive_coefficients=False, sampling_frequency=20, drop=200, window_size=11, r_squared_threshold=0.7):
