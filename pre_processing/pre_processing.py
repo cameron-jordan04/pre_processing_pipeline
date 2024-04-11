@@ -143,6 +143,7 @@ class Preprocess:
             reference_baseline = self.lpf_baseline(self.smoothed_ref)
         else:
             raise Exception("Unsupported Detrending Method")
+
         self.signal_baseline = signal_baseline
         self.reference_baseline = reference_baseline
 
@@ -151,7 +152,6 @@ class Preprocess:
         model = sm.OLS(Y,X)
         results = model.fit()
         r_squared = results.rsquared
-        self.r2 = r_squared
 
         if (r_squared < self.r_squared_threshold):
             self.detrended_signal = self.smoothed_signal - signal_baseline[:len(self.smoothed_signal)]
@@ -208,13 +208,8 @@ class Preprocess:
         self.z_ref = self.detrended_ref
 
         if (method == "lasso" or method == "l"):
-            # if (self.positive_coefficients):
-            #     lin = Lasso(alpha=0,precompute=True,max_iter=1000, positive=True, random_state=9999, selection='random')
-            # else:
-            #     lin = Lasso(alpha=0,precompute=True,max_iter=1000, positive=False, random_state=9999, selection='random')
             lin = LinearRegression(positive=self.positive_coefficients, fit_intercept=True)
             lin.fit(self.detrended_ref.reshape(len(self.detrended_ref),1), self.detrended_signal.reshape(len(self.detrended_ref),1))
-            print(lin.coef_)
             self.fitted_ref = lin.predict(self.detrended_ref.reshape(len(self.detrended_ref),1)).reshape(len(self.detrended_ref),)
 
         return self.fitted_ref
