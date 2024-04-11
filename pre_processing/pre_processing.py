@@ -46,6 +46,7 @@ class Preprocess:
         self.detrended = False
         self.positive_coefficients = positive_coefficients
         self.fs = sampling_frequency
+        self.cutoff = cutoff
         self.drop = drop
         self.window_size = window_size
         self.r_squared_threshold = r_squared_threshold
@@ -64,8 +65,8 @@ class Preprocess:
                 fit_method       : Method to Pass to self.fit(); string-type
                     - l    [lasso] 
                 detrend_last     : Indicates Whether to Detrend After Subtracting self.fitted_ref From self.detrended_signal
-                ax               : Axis to Pass to _visualize; plt.gca() object
                 show             : Indicates Whether to Graph the Pre-Processed Signal Upon Pipeline Generation
+                ax               : Axis to Pass to _visualize; plt.gca() object
 
             Returns:
                 self.z_dFF       : Normalized, Filtered, Baseline-Corrected signal Channel
@@ -76,14 +77,11 @@ class Preprocess:
         self.compare_and_baseline(baseline_method)
         self.fit(fit_method)
 
-        if (self.detrended):
-            self.z_dFF = (self.detrended_signal - self.fitted_ref)
-        else:
-            self.z_dFF = (self.detrended_signal - self.fitted_ref) / self.fitted_ref
+        self.z_dFF = (self.detrended_signal - self.fitted_ref)
 
-        if (detrend_last):
+        if (detrend_last and not self.detrended):
             self.z_dFF = self.baseline(baseline_method, self.z_dFF)
-
+        
         if (show):
             self._visualize(self.z_dFF, 'z_dFF', ax=ax)
         
