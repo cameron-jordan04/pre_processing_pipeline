@@ -157,7 +157,7 @@ class Preprocess:
 
         if (r_squared < self.r_squared_threshold):
             self.detrended_signal = self.smoothed_signal - signal_baseline[:len(self.smoothed_signal)]
-            self.detrended_ref = self.smoothed_ref # - reference_baseline[:len(self.smoothed_ref)]
+            self.detrended_ref = self.smoothed_ref - reference_baseline[:len(self.smoothed_ref)]
             self.detrended = True
         else:
             self.detrended_signal = self.smoothed_signal
