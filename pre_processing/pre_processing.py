@@ -210,10 +210,11 @@ class Preprocess:
         self.z_ref = self.detrended_ref
 
         if (method == "lasso" or method == "l"):
-            if (self.positive_coefficients):
-                lin = Lasso(alpha=0,precompute=True,max_iter=1000, positive=True, random_state=9999, selection='random')
-            else:
-                lin = Lasso(alpha=0,precompute=True,max_iter=1000, positive=False, random_state=9999, selection='random')
+            # if (self.positive_coefficients):
+            #     lin = Lasso(alpha=0,precompute=True,max_iter=1000, positive=True, random_state=9999, selection='random')
+            # else:
+            #     lin = Lasso(alpha=0,precompute=True,max_iter=1000, positive=False, random_state=9999, selection='random')
+            lin = LinearRegression(positive=self.positive_coefficients, fit_intercept=True)
             lin.fit(self.detrended_ref.reshape(len(self.detrended_ref),1), self.detrended_signal.reshape(len(self.detrended_ref),1))
             print(lin.coef_)
             self.fitted_ref = lin.predict(self.detrended_ref.reshape(len(self.detrended_ref),1)).reshape(len(self.detrended_ref),)
