@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import pywt
 
-from sklearn.linear_model import Lasso, LassoCV
+from sklearn.linear_model import Lasso, LassoCV, LinearRegression
 
 """ Photometry Pre-Processing Class """
 
