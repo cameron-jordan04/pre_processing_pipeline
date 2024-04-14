@@ -10,11 +10,11 @@ def fit_reference(
     drop=200,
     window_size=11,
     r_squared_threshold=0.7,
-    pos_coef = False,
+    pos_coef=False,
     detrend_last=False,
     smoothing_method="tma",
     baseline_method="lpf",
-    fit_method="l"
+    fit_method="l",
 ):
     """
     Input:
@@ -24,7 +24,19 @@ def fit_reference(
 
     Returns:
         fitted_reference: np.ndarray
+        z_signal: np.ndarray preprocessed signal channel
+        z_reference: np.ndarray preprocessed reference channel
     """
-    data = Preprocess(timeseries, raw_signal, raw_reference, pos_coef, fr, cutoff, drop, window_size, r_squared_threshold)
+    data = Preprocess(
+        timeseries,
+        raw_signal,
+        raw_reference,
+        pos_coef,
+        fr,
+        cutoff,
+        drop,
+        window_size,
+        r_squared_threshold,
+    )
     data.pipeline(smoothing_method, baseline_method, fit_method, detrend_last)
-    return data.fitted_ref
+    return data.z_ref, data.z_signal, data.fitted_ref
