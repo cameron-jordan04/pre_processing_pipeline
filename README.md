@@ -49,8 +49,8 @@ graph TD;
     id5[low-pass filter]
     id6[detrend]
     id7[baseline corrected]
-    id8[LASSO w/ Positive Coefficients]
-    id9[LASSO w/ Negative Coefficients]
+    id8[Linear Regression w/ Positive Coefficients]
+    id9[Linear Regression w/ Negative Coefficients]
     id10[z_dFF]
 
     id0-->id1
