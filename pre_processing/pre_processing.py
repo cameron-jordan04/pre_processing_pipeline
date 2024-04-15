@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import pywt
 
-from sklearn.linear_model import Lasso, LassoCV
+from sklearn.linear_model import LinearRegression
 
 ''' Photometry Pre-Processing Class '''
 class Preprocess:
@@ -38,10 +38,12 @@ class Preprocess:
         self.signal = signal[drop:]
         self.smoothed_signal = None
         self.detrended_signal = None
+        self.signal_baseline = None
         self.z_dFF = None
         self.ref = reference[drop:]
         self.smoothed_ref = None
         self.detrended_ref = None
+        self.reference_baseline = None
         self.fitted_ref = None
         self.detrended = False
         self.positive_coefficients = positive_coefficients
@@ -63,7 +65,7 @@ class Preprocess:
                     - w   [wavelet]
                     - lpf [low_pass_filter]
                 fit_method       : Method to Pass to self.fit(); string-type
-                    - l    [lasso] 
+                    - l    [linear regression] 
                 detrend_last     : Indicates Whether to Detrend After Subtracting self.fitted_ref From self.detrended_signal
                 show             : Indicates Whether to Graph the Pre-Processed Signal Upon Pipeline Generation
                 ax               : Axis to Pass to _visualize; plt.gca() object

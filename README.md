@@ -15,7 +15,7 @@ Author: Cameron Jordan
     3.2 [Spline Smoothing](#spline-smoothing)
     3.3 [Wavelet Methods](#wavelet-decomposition-and-reconstruction)
     3.4 [OLS](#ordinary-least-squares-regression-ols)
-    3.5 [LASSO](#lasso-regression)
+    3.5 [Linear Regression](#linear-regression)
 
 ### Usage
 
@@ -261,7 +261,7 @@ Credit: [The Cross Validation Method in the Smoothing Spline Regression](https:/
 
 
 
-#### LASSO Regression
+#### Linear Regression
 
 
 
