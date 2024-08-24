@@ -7,15 +7,15 @@ Author: Cameron Jordan
 **Index**
 1. [Usage](#usage)
 2. [Methods](#methods)
-    2.1 [Primary Methods](#primary-methods)
-    2.2 [Auxiliary Methods](#auxiliary-methods)
-    2.3 [Utility Methods](#utility-methods)
+- [Primary Methods](#primary-methods)
+- [Auxiliary Methods](#auxiliary-methods)
+- [Utility Methods](#utility-methods)
 3. [Theory](#theory)
-    3.1 [Triangular Moving Average](#triangular-moving-average)
-    3.2 [Spline Smoothing](#spline-smoothing)
-    3.3 [Wavelet Methods](#wavelet-decomposition-and-reconstruction)
-    3.4 [OLS](#ordinary-least-squares-regression-ols)
-    3.5 [Linear Regression](#linear-regression)
+- [Triangular Moving Average](#triangular-moving-average)
+- [Spline Smoothing](#spline-smoothing)
+- [Wavelet Methods](#wavelet-decomposition-and-reconstruction)
+- [OLS](#ordinary-least-squares-regression-ols)
+- [Linear Regression](#linear-regression)
 
 ### Usage
 
